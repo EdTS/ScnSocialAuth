@@ -17,7 +17,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 
-class HybridAuth extends AbstractAdapter implements ServiceManagerAwareInterface, EventManagerAwareInterface
+class HybridAuth extends AbstractAdapter implements /*ServiceManagerAwareInterface,*/ EventManagerAwareInterface
 {
     /**
      * @var Hybrid_Auth

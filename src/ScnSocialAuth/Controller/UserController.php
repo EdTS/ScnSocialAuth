@@ -31,6 +31,11 @@ class UserController extends AbstractActionController
      */
     protected $zfcmoduleoptions;
 
+    /**
+     * @var \ZfcUser\Options\ModuleOptions
+     */
+    protected $ScnSocialAuthAuthenticationAdapterChain;
+
     /*
      * @todo Make this dynamic / translation-friendly
      * @var string
@@ -45,12 +50,15 @@ class UserController extends AbstractActionController
     /**
      * @param callable $redirectCallback
      */
-    public function __construct($redirectCallback)
+    public function __construct($redirectCallback, $ScnSocialAuthAuthenticationAdapterChain)
     {
+        $this->setScnSocialAuthAuthenticationAdapterChain($ScnSocialAuthAuthenticationAdapterChain);
+
         if (!is_callable($redirectCallback)) {
             throw new \InvalidArgumentException('You must supply a callable redirectCallback');
         }
         $this->redirectCallback = $redirectCallback;
+
     }
 
     public function addProviderAction()
@@ -158,7 +166,7 @@ class UserController extends AbstractActionController
         }
 
         // For provider authentication, change the auth adapter in the ZfcUser Controller Plugin
-        $this->zfcUserAuthentication()->setAuthAdapter($this->getServiceLocator()->get('ScnSocialAuth-AuthenticationAdapterChain'));
+        $this->zfcUserAuthentication()->setAuthAdapter($this->getScnSocialAuthAuthenticationAdapterChain());
 
         // Adding the provider to request metadata to be used by HybridAuth adapter
         $this->getRequest()->setMetadata('provider', $provider);
@@ -281,5 +289,18 @@ class UserController extends AbstractActionController
     public function setZfcModuleOptions($zfcmoduleoptions)
     {
         $this->zfcmoduleoptions = $zfcmoduleoptions;
+    }
+
+    /**
+     * @return \ZfcUser\Options\ModuleOptions
+     */
+    public function getScnSocialAuthAuthenticationAdapterChain()
+    {
+        return $this->ScnSocialAuthAuthenticationAdapterChain;
+    }
+
+
+    public function setScnSocialAuthAuthenticationAdapterChain($ScnSocialAuthAuthenticationAdapterChain){
+        $this->ScnSocialAuthAuthenticationAdapterChain = $ScnSocialAuthAuthenticationAdapterChain;
     }
 }
