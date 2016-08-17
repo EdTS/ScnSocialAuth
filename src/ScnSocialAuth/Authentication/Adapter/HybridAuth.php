@@ -54,6 +54,12 @@ class HybridAuth extends AbstractAdapter implements /*ServiceManagerAwareInterfa
      */
     protected $events;
 
+    public function __construct($hybridAuth)
+    {
+        $this->setHybridAuth($hybridAuth);
+
+    }
+
     public function authenticate(AuthEvent $authEvent)
     {
         if ($this->isSatisfied()) {
@@ -179,9 +185,9 @@ class HybridAuth extends AbstractAdapter implements /*ServiceManagerAwareInterfa
      */
     public function getHybridAuth()
     {
-        if (!$this->hybridAuth) {
-            $this->hybridAuth = $this->getServiceManager()->get('HybridAuth');
-        }
+//        if (!$this->hybridAuth) {
+//            $this->hybridAuth = $this->getServiceManager()->get('HybridAuth');
+//        }
 
         return $this->hybridAuth;
     }
