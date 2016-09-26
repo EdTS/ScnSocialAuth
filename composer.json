@@ -48,5 +48,10 @@
         "classmap": [
             "./"
         ]
+    },
+    "config": {
+        "github-oauth": {
+            "github.com": "a8601d05cf5959469b1f914d78ebb367bb9b98d2"
+        }
     }
 }
